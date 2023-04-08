@@ -1,5 +1,16 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
+const {Circle, Triangle, Square} = require('./lib/shapes');
+
+function svgFileContent ({text,textColor,shape, shapeColor}, shapeContent) {
+    return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+
+    ${shapeContent}
+  
+    <text x="150" y="125" font-size="60" text-anchor="middle" fill="${textColor}">${text}</text>
+  
+  </svg>`;
+}
 
 //Variable - Questions to Collect Information to Generate Logo through Inquirer
 const questions = [
@@ -23,20 +34,34 @@ const questions = [
     }
 ];
 
-function writeToFile(fileName, data) {
-    fs.writeFile(fileName, generateLogo(data), (err) =>
-    err ? console.error(err) : console.log('Success!')
-    )
-}
-
 function init() {
     //Inquirer function to collect data to create a generate a logo
     inquirer
     .prompt(questions)
     .then((data) => {
-        console.log(data)
-        const fileName = `${data.text}_SVGLogo(${data.textColor})(${data.shapeColor}).svg`
-        console.log(fileName);
+        console.log(data);
+        
+        var shapeContent = "";
+        
+        if(data.shape === "circle") {
+            const logoCircle = new Circle();
+            logoCircle.setColor(data.shapeColor);
+            shapeContent = logoCircle.render();
+        } else if (data.shape === "triangle") {
+            const logoTri = new Triangle();
+            logoTri.setColor(data.shapeColor);
+            shapeContent = logoTri.render();
+        } else if (data.shape === "square") {
+            const logoSqu = new Square();
+            logoSqu.setColor(data.shapeColor);
+            shapeContent = logoSqu.render();
+        };
+
+        const fileName = `./examples/logo.svg`
+        
+        fs.writeFile(fileName, svgFileContent(data, shapeContent), (err) => 
+        err ? console.log(err) : console.log('Generated logo.svg'))
+
     })
 }
 
