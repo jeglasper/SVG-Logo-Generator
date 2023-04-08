@@ -73,6 +73,12 @@ If you would like to communicate with me outside of Github, please send me an em
 
 [jeglasper@gmail.com](mailto:jeglasper@gmail.com)
 
+## Credit
+
+Add Validate to Inquirer - https://www.npmjs.com/package/inquirer
+How to Install Jest - https://jestjs.io/docs/getting-started
+AskBCS Learning Assistant - Assistance with Constructors & Rendering Shape Specifics to new document
+
 ## License
 
 This project has an MIT License. Please see the LICENSE in the repo for more information.
