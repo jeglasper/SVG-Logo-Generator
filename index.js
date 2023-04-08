@@ -1,6 +1,7 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
+//Variable - Questions to Collect Information to Generate Logo through Inquirer
 const questions = [
     {
         type: 'input',
@@ -22,11 +23,20 @@ const questions = [
     }
 ];
 
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, generateLogo(data), (err) =>
+    err ? console.error(err) : console.log('Success!')
+    )
+}
+
 function init() {
+    //Inquirer function to collect data to create a generate a logo
     inquirer
     .prompt(questions)
     .then((data) => {
         console.log(data)
+        const fileName = `${data.text}_SVGLogo(${data.textColor})(${data.shapeColor}).svg`
+        console.log(fileName);
     })
 }
 
